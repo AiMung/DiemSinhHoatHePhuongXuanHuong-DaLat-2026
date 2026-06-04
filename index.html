@@ -51,36 +51,118 @@
         #loader {
             position: fixed;
             inset: 0;
-            background: #0f172a;
-            z-index: 9999;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            z-index: 99999;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             transition: opacity 0.8s ease, visibility 0.8s;
+            overflow: hidden;
         }
 
-        .loader-ring {
-            width: 80px;
-            height: 80px;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-top: 4px solid var(--primary);
+        .loader-logo-wrapper {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader-logo {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            z-index: 10;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(14, 165, 233, 0.6));
+        }
+
+        .loader-pulse-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-            box-shadow: 0 0 20px var(--primary-glow);
+            border: 2px solid var(--primary);
+            animation: pulse-ring-expand 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        @keyframes pulse-ring-expand {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .loader-title {
+            font-size: clamp(14px, 5vw, 2.5rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #fff, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            white-space: nowrap;
+        }
+
+        .loader-subtitle {
+            font-size: clamp(10px, 2.5vw, 1.1rem);
+            color: #94a3b8;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            white-space: nowrap;
+        }
+
+        .loader-progress-bar {
+            width: 280px;
+            max-width: 80vw;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .loader-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+            border-radius: 4px;
+            transition: width 0.1s linear;
         }
 
         .loader-text {
-            font-size: 1.2rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            background: linear-gradient(90deg, #fff, var(--primary), #fff);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 2s linear infinite;
+            font-size: 0.85rem;
+            color: var(--primary);
+            letter-spacing: 1px;
+            font-family: monospace;
         }
 
         /* App Layout */
@@ -122,12 +204,13 @@
         }
 
         .header-title {
-            font-size: 1.5rem;
+            font-size: clamp(16px, 5.5vw, 1.45rem);
             font-weight: 800;
             line-height: 1.3;
             margin-bottom: 10px;
             color: #fff;
             text-shadow: 0 2px 10px rgba(14, 165, 233, 0.4);
+            white-space: nowrap;
         }
 
         .header-subtitle {
@@ -618,15 +701,18 @@
             .mobile-search-container {
                 display: block;
             }
+
             .mobile-search-container .search-input {
                 background: rgba(15, 23, 42, 0.95);
                 border: 1px solid rgba(255, 255, 255, 0.2);
                 box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
                 backdrop-filter: blur(10px);
             }
+
             .sidebar .search-container {
                 display: none;
             }
+
             #app {
                 flex-direction: column-reverse;
             }
@@ -653,7 +739,8 @@
             }
 
             .header-title {
-                font-size: 1.2rem;
+                font-size: clamp(14px, 5.2vw, 1.2rem);
+                white-space: nowrap;
             }
 
             .mobile-toggle {
@@ -680,8 +767,17 @@
 
     <!-- Loading Screen -->
     <div id="loader">
-        <div class="loader-ring"></div>
-        <div class="loader-text">Đang tải dữ liệu...</div>
+        <div class="loader-logo-wrapper">
+            <img src="logo_DTN.webp" alt="Logo DTN" class="loader-logo"
+                onerror="this.src='https://upload.wikimedia.org/wikipedia/vi/a/a2/Huy_hieu_Doan.png';">
+            <div class="loader-pulse-ring"></div>
+        </div>
+        <div class="loader-title">Phường Xuân Hương - Đà Lạt</div>
+        <div class="loader-subtitle">Bản Đồ Điểm Sinh Hoạt Hè 2026</div>
+        <div class="loader-progress-bar">
+            <div class="loader-progress" id="loader-progress"></div>
+        </div>
+        <div class="loader-text" id="loader-text">Khởi tạo hệ thống...</div>
     </div>
 
     <div id="app">
@@ -708,7 +804,8 @@
             <div class="mobile-search-container">
                 <div class="search-container" style="margin-top: 0;">
                     <i class="fa-solid fa-search search-icon"></i>
-                    <input type="text" id="mobile-search-input" class="search-input" placeholder="Tìm kiếm điểm sinh hoạt, chi đoàn...">
+                    <input type="text" id="mobile-search-input" class="search-input"
+                        placeholder="Tìm kiếm điểm sinh hoạt, chi đoàn...">
                 </div>
             </div>
 
@@ -768,7 +865,7 @@
             const mobileToggle = document.getElementById('mobile-toggle');
             if (forceState !== undefined) sidebarOpen = forceState;
             else sidebarOpen = !sidebarOpen;
-            
+
             if (sidebarOpen) {
                 sidebar.classList.add('active');
                 mobileToggle.innerHTML = '<i class="fa-solid fa-map"></i> Hiện bản đồ';
@@ -791,7 +888,7 @@
                         </div>
                         <div class="logo-pulse"></div>
                         <div class="logo-wrapper" style="background: linear-gradient(135deg, #f43f5e, #fb923c);">
-                            <i class="fa-solid fa-star" style="color: white; font-size: 20px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.8));"></i>
+                            <i class="fa-solid fa-flag-checkered" style="color: white; font-size: 20px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.8));"></i>
                         </div>
                         <div class="marker-arrow"></div>
                     </div>`;
@@ -800,7 +897,7 @@
                     <div class="logo-marker-container">
                         <div class="logo-pulse"></div>
                         <div class="logo-wrapper">
-                            <img src="logo_DTN.webp" alt="Logo DTN" onerror="this.src='https://upload.wikimedia.org/wikipedia/vi/a/a2/Huy_hieu_Doan.png';">
+                            <img src="./image/logo_DTN.webp" alt="Logo DTN" onerror="this.src='https://upload.wikimedia.org/wikipedia/vi/a/a2/Huy_hieu_Doan.png';">
                         </div>
                         <div class="marker-arrow"></div>
                     </div>`;
@@ -815,20 +912,47 @@
             });
         };
 
-        document.addEventListener("DOMContentLoaded", () => {
-            // Simulate loading
-            setTimeout(() => {
-                document.getElementById('loader').style.opacity = '0';
-                document.getElementById('loader').style.visibility = 'hidden';
-                document.getElementById('app').classList.add('visible');
-                initMap();
-                renderList();
-            }, 1500);
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simulate 3-second pro loading intro
+            let progress = 0;
+            const progressBar = document.getElementById('loader-progress');
+            const loaderText = document.getElementById('loader-text');
+            const steps = [
+                "Khởi tạo hệ thống bản đồ...",
+                "Đang tải vệ tinh phân giải cao...",
+                "Đồng bộ tọa độ 22 chi đoàn...",
+                "Tìm tuyến đường ngắn nhất đến các điểm",
+                "Hoàn tất. Đang mở giao diện..."
+            ];
+
+            const interval = setInterval(() => {
+                progress += Math.random() * 4 + 1.5; // ~3 seconds total
+                if (progress > 100) progress = 100;
+                progressBar.style.width = progress + '%';
+
+                if (progress < 20) loaderText.innerText = steps[0];
+                else if (progress < 45) loaderText.innerText = steps[1];
+                else if (progress < 70) loaderText.innerText = steps[2];
+                else if (progress < 90) loaderText.innerText = steps[3];
+                else loaderText.innerText = steps[4];
+
+                if (progress === 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        document.getElementById('loader').style.opacity = '0';
+                        document.getElementById('loader').style.visibility = 'hidden';
+                        document.getElementById('app').classList.add('visible');
+                        initMap();
+                        renderList();
+                    }, 400); // 400ms pause at 100% before fading out
+                }
+            }, 100);
 
             // Search logic shared between desktop and mobile search bars
             const searchInput = document.getElementById('search-input');
             const mobileSearchInput = document.getElementById('mobile-search-input');
-            
+
             const handleSearch = (term) => {
                 filteredLocations = locations.filter(loc =>
                     loc.name.toLowerCase().includes(term) ||
@@ -836,7 +960,7 @@
                     (loc.addr && loc.addr.toLowerCase().includes(term))
                 );
                 renderList(filteredLocations);
-                
+
                 // Open sidebar on mobile when typing
                 if (window.innerWidth <= 768 && term.trim() !== '' && !sidebarOpen) {
                     toggleSidebarState(true);
@@ -848,7 +972,7 @@
                 if (mobileSearchInput.value !== val) mobileSearchInput.value = val;
                 handleSearch(val);
             });
-            
+
             mobileSearchInput.addEventListener('input', (e) => {
                 const val = e.target.value.toLowerCase();
                 if (searchInput.value !== val) searchInput.value = val;
@@ -895,7 +1019,16 @@
                 // Popup content
                 const popupContent = `
                     <div class="custom-popup">
-                        ${loc.special ? `<div class="special-event-badge"><i class="fa-solid fa-star"></i> Sự kiện đặc biệt</div>` : ''}
+                        ${loc.special ? `
+                        <div class="special-event-badge" style="display: block; text-align: center; margin-bottom: 10px; font-size: 0.8rem; letter-spacing: 1px;">
+                            <i class="fa-solid fa-flag-checkered"></i> Lễ Khai Mạc Hè 2026
+                        </div>
+                        <div style="background: linear-gradient(135deg, rgba(244,63,94,0.15), rgba(251,146,60,0.15)); border: 1px solid rgba(251,146,60,0.3); padding: 10px; border-radius: 8px; margin-bottom: 12px;">
+                            <div style="text-align:center; font-size:0.75rem; color:#e2e8f0; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; font-weight:600;"><i class="fa-regular fa-clock"></i> Đếm ngược đến sự kiện</div>
+                            <div id="countdown-timer" style="min-height: 45px;">
+                                <div style="text-align:center; color:#94a3b8; font-size:0.8rem; margin-top:5px;"><i class="fa-solid fa-spinner fa-spin"></i> Đang đồng bộ thời gian...</div>
+                            </div>
+                        </div>` : ''}
                         <div class="popup-title">${loc.name}</div>
                         ${loc.desc ? `<div class="popup-detail" style="font-style:italic;"><i class="fa-solid fa-info-circle"></i> ${loc.desc}</div>` : ''}
                         <div class="popup-detail"><i class="fa-solid fa-user-tie"></i> <span>Phụ trách: <strong>${loc.person}</strong></span></div>
@@ -940,6 +1073,47 @@
                         .bindPopup('<div style="color:black; font-weight:bold; padding:5px;">Vị trí của bạn</div>');
                 });
             }
+
+            // Global Countdown Logic for Special Popup
+            const targetDate = new Date("2026-06-07T07:30:00").getTime();
+            setInterval(() => {
+                const timerEl = document.getElementById('countdown-timer');
+                if (timerEl) {
+                    const now = new Date().getTime();
+                    const distance = targetDate - now;
+
+                    if (distance < 0) {
+                        timerEl.innerHTML = '<div style="text-align:center; font-weight:bold; color:#4ade80; font-size:1.1rem; padding: 10px 0; text-shadow: 0 0 10px rgba(74,222,128,0.5);">ĐÃ ĐẾN GIỜ KHAI MẠC! 🎉</div>';
+                        return;
+                    }
+
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    timerEl.innerHTML = `
+                        <div style="display:flex; justify-content:space-between; gap: 4px; text-align:center;">
+                            <div style="background:rgba(0,0,0,0.3); padding:6px 0; border-radius:6px; flex:1; border: 1px solid rgba(255,255,255,0.05);">
+                                <div style="font-size:1.1rem; font-weight:bold; color:#fb923c;">${days}</div>
+                                <div style="font-size:0.6rem; text-transform:uppercase; color:#cbd5e1; margin-top:2px;">Ngày</div>
+                            </div>
+                            <div style="background:rgba(0,0,0,0.3); padding:6px 0; border-radius:6px; flex:1; border: 1px solid rgba(255,255,255,0.05);">
+                                <div style="font-size:1.1rem; font-weight:bold; color:#fb923c;">${hours < 10 ? '0'+hours : hours}</div>
+                                <div style="font-size:0.6rem; text-transform:uppercase; color:#cbd5e1; margin-top:2px;">Giờ</div>
+                            </div>
+                            <div style="background:rgba(0,0,0,0.3); padding:6px 0; border-radius:6px; flex:1; border: 1px solid rgba(255,255,255,0.05);">
+                                <div style="font-size:1.1rem; font-weight:bold; color:#fb923c;">${minutes < 10 ? '0'+minutes : minutes}</div>
+                                <div style="font-size:0.6rem; text-transform:uppercase; color:#cbd5e1; margin-top:2px;">Phút</div>
+                            </div>
+                            <div style="background:rgba(0,0,0,0.3); padding:6px 0; border-radius:6px; flex:1; border: 1px solid rgba(255,255,255,0.05);">
+                                <div style="font-size:1.1rem; font-weight:bold; color:#38bdf8; text-shadow: 0 0 8px rgba(56,189,248,0.5);">${seconds < 10 ? '0'+seconds : seconds}</div>
+                                <div style="font-size:0.6rem; text-transform:uppercase; color:#cbd5e1; margin-top:2px;">Giây</div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }, 1000);
         }
 
         // Search state
