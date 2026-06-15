@@ -527,6 +527,23 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 0 4px #fb923c;
         }
 
+        /* Special Event Marker - Swim Edition */
+        .logo-marker-container.special.swim-special .logo-wrapper {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 0 3px var(--primary);
+        }
+
+        .logo-marker-container.special.swim-special:hover .logo-wrapper {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 0 4px var(--secondary);
+        }
+
+        .logo-marker-container.special.swim-special .marker-arrow {
+            border-top-color: var(--primary);
+        }
+
+        .logo-marker-container.special.swim-special:hover .marker-arrow {
+            border-top-color: var(--secondary);
+        }
+
         .logo-pulse {
             position: absolute;
             width: 60px;
@@ -541,6 +558,10 @@
 
         .logo-marker-container.special .logo-pulse {
             background: var(--accent);
+        }
+
+        .logo-marker-container.special.swim-special .logo-pulse {
+            background: var(--primary);
         }
 
         @keyframes pulse-ring {
@@ -814,6 +835,22 @@
     <script>
         const locations = [
             {
+                id: 24,
+                name: "Địa Điểm Thi Đấu Giải Bơi Thiếu Niên & Nhi Đồng 2026",
+                person: "C.Yến / Tuấn Anh (Liên hệ giải đáp)",
+                phone: "0983173404",
+                phones: ["0983173404", "0913332730"],
+                lat: 11.950806,
+                lng: 108.447694,
+                desc: "Địa điểm diễn ra Lễ khai mạc và cuộc thi đấu bơi lội hè 2026. Thời gian: 7h30 ngày 22/6/2026 (Lễ khai mạc, xong thi đấu ngay).",
+                addr: "Số 02 Trần Nhân Tông, Phường Lâm Viên - Đà Lạt (Hồ Bơi Phù Đổng)",
+                special: true,
+                specialType: "swim",
+                specialLabel: "Giải Bơi Thiếu Niên & Nhi Đồng 2026",
+                badgeText: "Giải bơi",
+                targetDate: "2026-06-22T07:30:00"
+            },
+            {
                 id: 23,
                 name: "Khai Mạc Hè Phường Xuân Hương - Đà Lạt",
                 person: "Đoàn Phường Xuân Hường - Đà Lạt",
@@ -867,22 +904,38 @@
         }
 
         // Custom Icons
-        const createCustomIcon = (isSpecial) => {
+        const createCustomIcon = (isSpecial, locType) => {
             let innerHtml = '';
             if (isSpecial) {
-                innerHtml = `
-                    <div class="logo-marker-container special">
-                        <div class="firework-container">
-                            <div class="firework"></div>
-                            <div class="firework"></div>
-                            <div class="firework"></div>
-                        </div>
-                        <div class="logo-pulse"></div>
-                        <div class="logo-wrapper" style="background: linear-gradient(135deg, #f43f5e, #fb923c);">
-                            <i class="fa-solid fa-flag-checkered" style="color: white; font-size: 20px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.8));"></i>
-                        </div>
-                        <div class="marker-arrow"></div>
-                    </div>`;
+                if (locType === 'swim') {
+                    innerHtml = `
+                        <div class="logo-marker-container special swim-special">
+                            <div class="firework-container">
+                                <div class="firework" style="box-shadow: 0 -35px 0 #0ea5e9, 25px -25px 0 #0ea5e9, 35px 0 0 #0ea5e9, 25px 25px 0 #0ea5e9, 0 35px 0 #0ea5e9, -25px 25px 0 #0ea5e9, -35px 0 0 #0ea5e9, -25px -25px 0 #0ea5e9;"></div>
+                                <div class="firework" style="box-shadow: 0 -45px 0 #00ffff, 32px -32px 0 #00ffff, 45px 0 0 #00ffff, 32px 32px 0 #00ffff, 0 45px 0 #00ffff, -32px 32px 0 #00ffff, -45px 0 0 #00ffff, -32px -32px 0 #00ffff;"></div>
+                                <div class="firework" style="box-shadow: 0 -25px 0 #3b8ee0, 18px -18px 0 #3b8ee0, 25px 0 0 #3b8ee0, 18px 18px 0 #3b8ee0, 0 25px 0 #3b8ee0, -18px 18px 0 #3b8ee0, -25px 0 0 #3b8ee0, -18px -18px 0 #3b8ee0;"></div>
+                            </div>
+                            <div class="logo-pulse"></div>
+                            <div class="logo-wrapper" style="background: linear-gradient(135deg, #0ea5e9, #00d2ff);">
+                                <i class="fa-solid fa-person-swimming" style="color: white; font-size: 20px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.8));"></i>
+                            </div>
+                            <div class="marker-arrow"></div>
+                        </div>`;
+                } else {
+                    innerHtml = `
+                        <div class="logo-marker-container special">
+                            <div class="firework-container">
+                                <div class="firework"></div>
+                                <div class="firework"></div>
+                                <div class="firework"></div>
+                            </div>
+                            <div class="logo-pulse"></div>
+                            <div class="logo-wrapper" style="background: linear-gradient(135deg, #f43f5e, #fb923c);">
+                                <i class="fa-solid fa-flag-checkered" style="color: white; font-size: 20px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.8));"></i>
+                            </div>
+                            <div class="marker-arrow"></div>
+                        </div>`;
+                }
             } else {
                 innerHtml = `
                     <div class="logo-marker-container">
@@ -989,11 +1042,19 @@
             // Add markers
             locations.forEach(loc => {
                 const marker = L.marker([loc.lat, loc.lng], {
-                    icon: createCustomIcon(loc.special)
+                    icon: createCustomIcon(loc.special, loc.specialType)
                 }).addTo(map);
 
                 // Formatted phone link
-                const phoneHtml = loc.phone ? `<a href="tel:${loc.phone}" style="color:var(--secondary); text-decoration:none;">${loc.phone}</a>` : '';
+                let phoneHtml = '';
+                if (loc.phones && loc.phones.length > 0) {
+                    phoneHtml = loc.phones.map((p, index) => {
+                        const nameLabel = index === 0 ? "C.Yến" : "Tuấn Anh";
+                        return `<a href="tel:${p}" style="color:var(--secondary); text-decoration:none; white-space:nowrap;">${p} (${nameLabel})</a>`;
+                    }).join(' hoặc ');
+                } else if (loc.phone) {
+                    phoneHtml = `<a href="tel:${loc.phone}" style="color:var(--secondary); text-decoration:none;">${loc.phone}</a>`;
+                }
 
                 // Generate groups HTML for popup
                 let popupGroupsHtml = '';
@@ -1011,12 +1072,12 @@
                 const popupContent = `
                     <div class="custom-popup">
                         ${loc.special ? `
-                        <div class="special-event-badge" style="display: block; text-align: center; margin-bottom: 10px; font-size: 0.8rem; letter-spacing: 1px;">
-                            <i class="fa-solid fa-flag-checkered"></i> Lễ Khai Mạc Hè 2026
+                        <div class="special-event-badge" style="display: block; text-align: center; margin-bottom: 10px; font-size: 0.8rem; letter-spacing: 1px; ${loc.specialType === 'swim' ? 'background: linear-gradient(135deg, var(--primary), #2563eb); box-shadow: 0 2px 10px rgba(14, 165, 233, 0.4);' : ''}">
+                            <i class="fa-solid ${loc.specialType === 'swim' ? 'fa-person-swimming' : 'fa-flag-checkered'}"></i> ${loc.specialLabel || 'Lễ Khai Mạc Hè 2026'}
                         </div>
-                        <div style="background: linear-gradient(135deg, rgba(244,63,94,0.15), rgba(251,146,60,0.15)); border: 1px solid rgba(251,146,60,0.3); padding: 10px; border-radius: 8px; margin-bottom: 12px;">
+                        <div style="background: ${loc.specialType === 'swim' ? 'linear-gradient(135deg, rgba(14,165,233,0.15), rgba(0,210,255,0.15))' : 'linear-gradient(135deg, rgba(244,63,94,0.15), rgba(251,146,60,0.15))'}; border: 1px solid ${loc.specialType === 'swim' ? 'rgba(0,210,255,0.3)' : 'rgba(251,146,60,0.3)'}; padding: 10px; border-radius: 8px; margin-bottom: 12px;">
                             <div style="text-align:center; font-size:0.75rem; color:#e2e8f0; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; font-weight:600;"><i class="fa-regular fa-clock"></i> Đếm ngược đến sự kiện</div>
-                            <div id="countdown-timer" style="min-height: 45px;">
+                            <div class="countdown-timer-el" data-target="${loc.targetDate || '2026-06-07T07:30:00'}" style="min-height: 45px;">
                                 <div style="text-align:center; color:#94a3b8; font-size:0.8rem; margin-top:5px;"><i class="fa-solid fa-spinner fa-spin"></i> Đang đồng bộ thời gian...</div>
                             </div>
                         </div>` : ''}
@@ -1026,7 +1087,7 @@
                         ${loc.phone ? `<div class="popup-detail"><i class="fa-solid fa-phone"></i> <span>SĐT: ${phoneHtml}</span></div>` : ''}
                         ${loc.addr ? `<div class="popup-detail"><i class="fa-solid fa-location-dot"></i> <span>Đ/c: ${loc.addr}</span></div>` : ''}
                         ${popupGroupsHtml}
-                        <a href="https://www.google.com/maps/dir/?api=1&destination=${loc.lat},${loc.lng}" target="_blank" class="popup-action" style="margin-top: 10px;">
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=${loc.lat},${loc.lng}" target="_blank" class="popup-action" style="margin-top: 10px; ${loc.specialType === 'swim' ? 'background: linear-gradient(135deg, var(--primary), #2563eb); box-shadow: 0 5px 15px rgba(14, 165, 233, 0.3);' : ''}">
                             <i class="fa-solid fa-diamond-turn-right"></i> Chỉ đường Google Maps
                         </a>
                     </div>
@@ -1065,16 +1126,17 @@
                 });
             }
 
-            // Global Countdown Logic for Special Popup
-            const targetDate = new Date("2026-06-07T07:30:00").getTime();
+            // Global Countdown Logic for open popups
             setInterval(() => {
-                const timerEl = document.getElementById('countdown-timer');
-                if (timerEl) {
+                document.querySelectorAll('.countdown-timer-el').forEach(timerEl => {
+                    const targetStr = timerEl.getAttribute('data-target');
+                    if (!targetStr) return;
+                    const targetDate = new Date(targetStr).getTime();
                     const now = new Date().getTime();
                     const distance = targetDate - now;
 
                     if (distance < 0) {
-                        timerEl.innerHTML = '<div style="text-align:center; font-weight:bold; color:#4ade80; font-size:1.1rem; padding: 10px 0; text-shadow: 0 0 10px rgba(74,222,128,0.5);">ĐÃ ĐẾN GIỜ KHAI MẠC! 🎉</div>';
+                        timerEl.innerHTML = '<div style="text-align:center; font-weight:bold; color:#4ade80; font-size:1.1rem; padding: 10px 0; text-shadow: 0 0 10px rgba(74,222,128,0.5);">ĐÃ DIỄN RA! 🎉</div>';
                         return;
                     }
 
@@ -1103,7 +1165,7 @@
                             </div>
                         </div>
                     `;
-                }
+                });
             }, 1000);
         }
 
@@ -1124,7 +1186,14 @@
                 card.className = 'location-card';
                 card.id = `card-${loc.id}`;
 
-                const specialBadge = loc.special ? `<div class="special-event-badge"><i class="fa-solid fa-award"></i> Khai mạc</div>` : '';
+                let specialBadge = '';
+                if (loc.special) {
+                    if (loc.specialType === 'swim') {
+                        specialBadge = `<div class="special-event-badge" style="background: linear-gradient(135deg, var(--primary), #2563eb); box-shadow: 0 2px 10px rgba(14, 165, 233, 0.4);"><i class="fa-solid fa-person-swimming"></i> ${loc.badgeText || 'Giải bơi'}</div>`;
+                    } else {
+                        specialBadge = `<div class="special-event-badge"><i class="fa-solid fa-award"></i> ${loc.badgeText || 'Khai mạc'}</div>`;
+                    }
+                }
 
                 // Generate groups HTML for sidebar card
                 let groupsHtml = '';
@@ -1138,11 +1207,19 @@
                     groupsHtml += '</div>';
                 }
 
+                // Handle multiple phones formatting
+                let phoneText = '';
+                if (loc.phones && loc.phones.length > 0) {
+                    phoneText = `- ${loc.phones.join(' / ')}`;
+                } else if (loc.phone) {
+                    phoneText = `- ${loc.phone}`;
+                }
+
                 card.innerHTML = `
                     ${specialBadge}
                     <div class="card-title">${loc.name}</div>
                     <div class="card-contact">
-                        <i class="fa-solid fa-user-tie"></i> ${loc.person} ${loc.phone ? `- ${loc.phone}` : ''}
+                        <i class="fa-solid fa-user-tie"></i> ${loc.person} ${phoneText}
                     </div>
                     ${loc.addr ? `<div class="card-contact"><i class="fa-solid fa-map-pin"></i> ${loc.addr}</div>` : ''}
                     ${groupsHtml}
