@@ -532,6 +532,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 0 3px var(--primary);
         }
 
+
         .logo-marker-container.special.swim-special:hover .logo-wrapper {
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 0 4px var(--secondary);
         }
@@ -542,6 +543,27 @@
 
         .logo-marker-container.special.swim-special:hover .marker-arrow {
             border-top-color: var(--secondary);
+        }
+
+        /* Special Event Marker - Pháp luật (tone vàng đồng) */
+        .logo-marker-container.special.law-special .logo-wrapper {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 0 3px #f5c842;
+        }
+
+        .logo-marker-container.special.law-special:hover .logo-wrapper {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 0 4px #fff4d1;
+        }
+
+        .logo-marker-container.special.law-special .marker-arrow {
+            border-top-color: #f5c842;
+        }
+
+        .logo-marker-container.special.law-special:hover .marker-arrow {
+            border-top-color: #fff4d1;
+        }
+
+        .logo-marker-container.special.law-special .logo-pulse {
+            background: #f5c842;
         }
 
         .logo-pulse {
@@ -835,6 +857,21 @@
     <script>
         const locations = [
             {
+                id: 25,
+                name: "Tuyên Truyền Pháp Luật & Phòng Chống Ma Túy",
+                person: "Đoàn Phường Xuân Hương - Đà Lạt",
+                phone: "0868203799",
+                lat: 11.950187,
+                lng: 108.435036,
+                addr: "238 Phan Đình Phùng - Cơ quan uỷ ban MTTQ Việt Nam phường Xuân Hương-Đà Lạt",
+                desc: "Dành cho học sinh Khối 8 đến Khối 12 trên toàn địa bàn Phường Xuân Hương.",
+                special: true,
+                specialType: "law",
+                specialLabel: "Tuyên Truyền Pháp Luật & Phòng Chống Ma Túy",
+                badgeText: "Pháp luật",
+                targetDate: "2026-06-28T08:00:00"
+            },
+            {
                 id: 24,
                 name: "Địa Điểm Thi Đấu Giải Bơi Thiếu Niên & Nhi Đồng 2026",
                 person: "C.Yến / Tuấn Anh (Liên hệ giải đáp)",
@@ -860,6 +897,8 @@
                 desc: "Lễ Khai mạc hè dành cho các em học sinh trên địa bàn sẽ diễn ra vào lúc 07h30 sáng ngày 07/06/2026 tại Đài phun nước Quảng trường Lâm Viên.",
                 special: true
             },
+
+
             { id: 1, name: "Hội Trường Trường Tiểu Học Đoàn Kết", person: "Nguyễn Tuấn", phone: "0979891194", lat: 11.94311, lng: 108.43363, groups: ["TDP Đồi Dinh", "TDP Nguyễn Văn Trỗi", "TDP Phan Bội Châu (Cụm trưởng)", "TDP Đoàn Kết", "TDP Hòa Bình", "TDP Nam Kỳ Khởi Nghĩa", "TDP Ánh Sáng"] },
             { id: 2, name: "Đình Nguyễn Thị Nghĩa", person: "Nguyễn Phú Quý", phone: "0964978546", lat: 11.95058, lng: 108.43979, groups: ["TDP Nguyễn Thị Nghĩa (Cụm trưởng)", "TDP Bùi Thị Xuân 2"] },
             { id: 3, name: "Hội Trường Nguyễn Lương Bằng", person: "Hoàng Kiều Trinh", phone: "0363887598", lat: 11.95243, lng: 108.43639, groups: ["TDP Mỹ Lộc (Cụm trưởng)", "TDP Nguyễn Lương Bằng", "TDP Nguyễn Du", "TDP Cổ Loa"] },
@@ -921,7 +960,25 @@
                             </div>
                             <div class="marker-arrow"></div>
                         </div>`;
-                } else {
+                }
+                else if (locType === 'law') {
+                    innerHtml = `
+                        <div class="logo-marker-container special law-special">
+                            <div class="firework-container">
+                                <div class="firework" style="box-shadow: 0 -35px 0 #f5c842, 25px -25px 0 #f5c842, 35px 0 0 #f5c842, 25px 25px 0 #f5c842, 0 35px 0 #f5c842, -25px 25px 0 #f5c842, -35px 0 0 #f5c842, -25px -25px 0 #f5c842;"></div>
+                                <div class="firework" style="box-shadow: 0 -45px 0 #fff4d1, 32px -32px 0 #fff4d1, 45px 0 0 #fff4d1, 32px 32px 0 #fff4d1, 0 45px 0 #fff4d1, -32px 32px 0 #fff4d1, -45px 0 0 #fff4d1, -32px -32px 0 #fff4d1;"></div>
+                                <div class="firework" style="box-shadow: 0 -25px 0 #d4a017, 18px -18px 0 #d4a017, 25px 0 0 #d4a017, 18px 18px 0 #d4a017, 0 25px 0 #d4a017, -18px 18px 0 #d4a017, -25px 0 0 #d4a017, -18px -18px 0 #d4a017;"></div>
+                            </div>
+                            <div class="logo-pulse"></div>
+                            <div class="logo-wrapper" style="background: linear-gradient(135deg, #f5c842, #d4a017);">
+                                <i class="fa-solid fa-shield-halved" style="color: white; font-size: 20px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.8));"></i>
+                            </div>
+                            <div class="marker-arrow"></div>
+                        </div>`;
+
+                }
+
+                else {
                     innerHtml = `
                         <div class="logo-marker-container special">
                             <div class="firework-container">
@@ -1067,15 +1124,39 @@
                     });
                     popupGroupsHtml += '</div></div>';
                 }
-
+                // Theme màu cho từng loại sự kiện đặc biệt
+                const themeMap = {
+                    swim: {
+                        icon: 'fa-person-swimming',
+                        badgeStyle: 'background: linear-gradient(135deg, var(--primary), #2563eb); box-shadow: 0 2px 10px rgba(14, 165, 233, 0.4);',
+                        boxBg: 'linear-gradient(135deg, rgba(14,165,233,0.15), rgba(0,210,255,0.15))',
+                        boxBorder: 'rgba(0,210,255,0.3)',
+                        actionStyle: 'background: linear-gradient(135deg, var(--primary), #2563eb); box-shadow: 0 5px 15px rgba(14, 165, 233, 0.3);'
+                    },
+                    law: {
+                        icon: 'fa-shield-halved',
+                        badgeStyle: 'background: linear-gradient(135deg, #f5c842, #d4a017); color:#1a1203; box-shadow: 0 2px 10px rgba(245, 200, 66, 0.4);',
+                        boxBg: 'linear-gradient(135deg, rgba(245,200,66,0.18), rgba(212,160,23,0.18))',
+                        boxBorder: 'rgba(245,200,66,0.35)',
+                        actionStyle: 'background: linear-gradient(135deg, #f5c842, #d4a017); color:#1a1203 !important; box-shadow: 0 5px 15px rgba(245, 200, 66, 0.35);'
+                    },
+                    default: {
+                        icon: 'fa-flag-checkered',
+                        badgeStyle: '',
+                        boxBg: 'linear-gradient(135deg, rgba(244,63,94,0.15), rgba(251,146,60,0.15))',
+                        boxBorder: 'rgba(251,146,60,0.3)',
+                        actionStyle: ''
+                    }
+                };
+                const theme = themeMap[loc.specialType] || themeMap.default;
                 // Popup content
                 const popupContent = `
                     <div class="custom-popup">
                         ${loc.special ? `
-                        <div class="special-event-badge" style="display: block; text-align: center; margin-bottom: 10px; font-size: 0.8rem; letter-spacing: 1px; ${loc.specialType === 'swim' ? 'background: linear-gradient(135deg, var(--primary), #2563eb); box-shadow: 0 2px 10px rgba(14, 165, 233, 0.4);' : ''}">
-                            <i class="fa-solid ${loc.specialType === 'swim' ? 'fa-person-swimming' : 'fa-flag-checkered'}"></i> ${loc.specialLabel || 'Lễ Khai Mạc Hè 2026'}
+                        <div class="special-event-badge" style="display: block; text-align: center; margin-bottom: 10px; font-size: 0.8rem; letter-spacing: 1px; ${theme.badgeStyle}">
+                            <i class="fa-solid ${theme.icon}"></i> ${loc.specialLabel || 'Lễ Khai Mạc Hè 2026'}
                         </div>
-                        <div style="background: ${loc.specialType === 'swim' ? 'linear-gradient(135deg, rgba(14,165,233,0.15), rgba(0,210,255,0.15))' : 'linear-gradient(135deg, rgba(244,63,94,0.15), rgba(251,146,60,0.15))'}; border: 1px solid ${loc.specialType === 'swim' ? 'rgba(0,210,255,0.3)' : 'rgba(251,146,60,0.3)'}; padding: 10px; border-radius: 8px; margin-bottom: 12px;">
+                        <div style="background: ${theme.boxBg}; border: 1px solid ${theme.boxBorder}; padding: 10px; border-radius: 8px; margin-bottom: 12px;">
                             <div style="text-align:center; font-size:0.75rem; color:#e2e8f0; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; font-weight:600;"><i class="fa-regular fa-clock"></i> Đếm ngược đến sự kiện</div>
                             <div class="countdown-timer-el" data-target="${loc.targetDate || '2026-06-07T07:30:00'}" style="min-height: 45px;">
                                 <div style="text-align:center; color:#94a3b8; font-size:0.8rem; margin-top:5px;"><i class="fa-solid fa-spinner fa-spin"></i> Đang đồng bộ thời gian...</div>
@@ -1087,7 +1168,7 @@
                         ${loc.phone ? `<div class="popup-detail"><i class="fa-solid fa-phone"></i> <span>SĐT: ${phoneHtml}</span></div>` : ''}
                         ${loc.addr ? `<div class="popup-detail"><i class="fa-solid fa-location-dot"></i> <span>Đ/c: ${loc.addr}</span></div>` : ''}
                         ${popupGroupsHtml}
-                        <a href="https://www.google.com/maps/dir/?api=1&destination=${loc.lat},${loc.lng}" target="_blank" class="popup-action" style="margin-top: 10px; ${loc.specialType === 'swim' ? 'background: linear-gradient(135deg, var(--primary), #2563eb); box-shadow: 0 5px 15px rgba(14, 165, 233, 0.3);' : ''}">
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=${loc.lat},${loc.lng}" target="_blank" class="popup-action" style="margin-top: 10px; ${theme.actionStyle}">
                             <i class="fa-solid fa-diamond-turn-right"></i> Chỉ đường Google Maps
                         </a>
                     </div>
@@ -1190,6 +1271,8 @@
                 if (loc.special) {
                     if (loc.specialType === 'swim') {
                         specialBadge = `<div class="special-event-badge" style="background: linear-gradient(135deg, var(--primary), #2563eb); box-shadow: 0 2px 10px rgba(14, 165, 233, 0.4);"><i class="fa-solid fa-person-swimming"></i> ${loc.badgeText || 'Giải bơi'}</div>`;
+                    } else if (loc.specialType === 'law') {
+                        specialBadge = `<div class="special-event-badge" style="background: linear-gradient(135deg, #f5c842, #d4a017); color:#1a1203; box-shadow: 0 2px 10px rgba(245, 200, 66, 0.4);"><i class="fa-solid fa-shield-halved"></i> ${loc.badgeText || 'Pháp luật'}</div>`;
                     } else {
                         specialBadge = `<div class="special-event-badge"><i class="fa-solid fa-award"></i> ${loc.badgeText || 'Khai mạc'}</div>`;
                     }
